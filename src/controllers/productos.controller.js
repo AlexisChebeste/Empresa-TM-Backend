@@ -48,33 +48,12 @@ const deleteProducto = async (req,res) =>{
 controller.deleteProducto = deleteProducto
 
 const getComponentesByProducto = async (req,res) => {
-  const _id = new mongoose.Types.ObjectId(req.params.id)
+  const {id} = req.params
   try{
-    const producto = await Producto.aggregate([
-      {
-        $match: {_id}
-      },
-      {
-        $lookup: {
-          from: 'componentes',
-          localField: "_id",
-          foreignField: "productoId",
-          as: "componentes"
-        }
-      },
-      {
-        $project: {
-          _id: 1,
-          nombre: 1,
-          descripcion: 1,
-          precio: 1,
-          "componentes._id": 1,
-          "componentes.nombre": 1,
-          "componentes.descripcion":1,
-          "componentes.pathImg": 1,
-        },
-      },
-    ])
+    const producto = await Producto.findById(id).populate({
+      path: 'componenteId',
+      select: 'nombre descripcion pathImg'
+    });
     res.status(200).json(producto)
 
   }catch (err){
@@ -114,35 +93,12 @@ const addComponentes = async (req,res) =>{
 controller.addComponentes = addComponentes
 
 const getFabricantesByProducto = async (req,res) => {
-  const _id = new mongoose.Types.ObjectId(req.params.id)
+  const {id} = req.params
   try{
-    const producto = await Producto.aggregate([
-      {
-        $match: {_id}
-      },
-      {
-        $lookup: {
-          from: 'fabricantes',
-          localField: "_id",
-          foreignField: "productoId",
-          as: "fabricantes"
-        }
-      },
-      {
-        $project: {
-          _id: 1,
-          nombre: 1,
-          descripcion: 1,
-          precio: 1,
-          "fabricantes._id": 1,
-          "fabricantes.nombre": 1,
-          "fabricantes.direccion":1,
-          "fabricantes.descripcion":1,
-          "fabricantes.numeroContacto": 1,
-          "fabricantes.pathImg": 1,
-        },
-      },
-    ])
+    const producto = await Producto.findById(id).populate({
+      path: 'fabricanteId',
+      select: 'nombre direccion descripcion numeroContacto pathImg'
+    });
     res.status(200).json(producto)
 
   }catch (err){

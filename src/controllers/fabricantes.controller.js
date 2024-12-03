@@ -10,8 +10,8 @@ const getAllFabricantes = async (req, res) => {
 controller.getAllFabricantes = getAllFabricantes
 
 const getFabricanteById = async (req,res) => {
-    const _id = req.params.id
-    const fabricante = await Fabricante.findById({_id})
+    const {id} = req.params
+    const fabricante = await Fabricante.findById(id)
     res.status(200).json(fabricante)
 }
 controller.getFabricanteById = getFabricanteById
@@ -42,10 +42,10 @@ const deleteFabricante = async (req,res) => {
 controller.deleteFabricante = deleteFabricante
 
 const getProductosByFabricante = async(req,res) =>{
-    const _id = req.params.id
+    const {id} = req.params
     try{
       
-      const fabricante = await Fabricante.findById({_id}).populate('productoId')
+      const fabricante = await Fabricante.findById(id).populate('productoId')
       res.status(200).json(fabricante)
   
     }catch (err){

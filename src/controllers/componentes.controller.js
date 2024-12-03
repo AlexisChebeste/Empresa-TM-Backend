@@ -10,8 +10,8 @@ const getAllComponentes = async (req, res) => {
 controller.getAllComponentes = getAllComponentes
 
 const getComponenteById = async (req,res) => {
-    const _id = req.params.id
-    const componente = await Componente.findById({_id})
+    const {id} = req.params
+    const componente = await Componente.findById(id)
     res.status(200).json(componente)
 }
 controller.getComponenteById = getComponenteById
@@ -42,10 +42,10 @@ const deleteComponente = async (req,res) => {
 controller.deleteComponente = deleteComponente
 
 const getProductosByComponente = async(req,res) =>{
-    const _id = req.params.id
+    const {id} = req.params
     try{
       
-      const componente = await Componente.findById({_id}).populate('productoId')
+      const componente = await Componente.findById(id).populate('productoId')
       res.status(200).json(componente)
   
     }catch (err){
