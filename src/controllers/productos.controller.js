@@ -95,11 +95,11 @@ const addComponentes = async (req,res) =>{
     //Actualizar el producto con los fabricantes dados
     const updatedProducto = await Producto.findOneAndUpdate(
       { _id: id },  
-      { $addToSet: { fabricanteId: { $each: componentesIds } } },  
+      { $addToSet: { componenteId: { $each: componentesIds } } },  
       { new: true }  
     );
     //Agrego el producto al fabricante
-    await Fabricante.updateMany(
+    await Componente.updateMany(
       { '_id': { $in: componentesIds } },
       { $addToSet: { productoId: id } } 
     );

@@ -13,7 +13,11 @@ const fabricanteJoiSchema = Joi.object({
       'string.empty': 'La descripción no puede estar vacía.',
       'any.required': 'La descripción es obligatoria.'
     }),
-    
+    numeroContacto: Joi.string().min(5).required().messages({
+      'string.base': 'El numeroContacto debe ser una cadena de texto.',
+      'string.empty': 'El numeroContacto no puede estar vacía.',
+      'any.required': 'El numeroContacto es obligatorio.'
+    }),
     direccion: Joi.string().min(5).required().messages({
         'string.base': 'La direccion debe ser una cadena de texto.',
         'string.empty': 'La direccion no puede estar vacía.',
