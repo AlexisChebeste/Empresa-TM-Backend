@@ -33,6 +33,7 @@ const productoSchema = new mongoose.Schema({
 )
 
 productoSchema.set('toJSON', {
+  virtuals: true,
   transform: (_, ret) => {
     delete ret.__v;
     delete ret._id;

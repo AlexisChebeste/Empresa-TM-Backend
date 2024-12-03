@@ -25,6 +25,7 @@ const componenteSchema = new mongoose.Schema({
 )
 
 componenteSchema.set('toJSON', {
+  virtuals: true,
   transform: (_, ret) => {
     delete ret.__v;
     delete ret._id;
